@@ -1,0 +1,16 @@
+{
+  "name": "nerdtracker",
+  "subdomain": "nerdtracker",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "bundleDependencies": [
+    "filed"
+  ],
+  "version": "0.0.1-1",
+  "dependencies": {
+    "routes": "0.1.x",
+    "request": "~2.27.0",
+    "irc": "~0.3.6"
+  }
+}
