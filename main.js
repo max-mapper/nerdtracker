@@ -11,7 +11,9 @@ var tako = require('./tako.js')
 
 var irc = require('irc');
 var bot = new irc.Client('irc.freenode.net', 'nerdtracker5000', {
-    channels: ['#nerdtracker']
+    channels: ['#nerdtracker'],
+    retryCount: 5,
+    retryDelay: 5000
 })
 
 var options = require('./options.js')()
