@@ -20,10 +20,18 @@ t.route('/', function(req, resp) {
   resp.end('go to /nerdtracker/login to register')
 })
 
+function getName(user){
+  //look for a freenode irc name
+  var match = /([^@< [\^{}-]+)@freenode.net/.exec(user.bio);
+  return user.firstName + ((match && ' ('+match[1]+')') || '');
+}
+
 t.route('/nerdtracker/push', function(req, resp) {
   req.on('data', function (data) {
-    var checkin = JSON.parse(qs.parse(data.toString()).checkin)
-    var msg = checkin.user.firstName + ' just checked in at ' + checkin.venue.name
+	data = qs.parse(data.toString());
+    var checkin = JSON.parse(data.checkin);
+	var name = getName(JSON.parse(data.user));
+    var msg = name + ' just checked in at ' + checkin.venue.name
     if (checkin.venue && checkin.venue.location && checkin.venue.location.address) msg = msg + ' (' + checkin.venue.location.address + ', ' + checkin.venue.location.city + ')'
     if (checkin.shout) msg = msg + ': ' + checkin.shout
     bot.say('#nerdtracker', msg)
