@@ -28,9 +28,9 @@ function getName(user){
 
 t.route('/nerdtracker/push', function(req, resp) {
   req.on('data', function (data) {
-	data = qs.parse(data.toString());
+    data = qs.parse(data.toString());
     var checkin = JSON.parse(data.checkin);
-	var name = getName(JSON.parse(data.user));
+    var name = getName(JSON.parse(data.user));
     var msg = name + ' just checked in at ' + checkin.venue.name
     if (checkin.venue && checkin.venue.location && checkin.venue.location.address) msg = msg + ' (' + checkin.venue.location.address + ', ' + checkin.venue.location.city + ')'
     if (checkin.shout) msg = msg + ': ' + checkin.shout
