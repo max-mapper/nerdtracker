@@ -1,12 +1,6 @@
-var crypto = require('crypto')
-var fs = require("fs")
 var https = require('https')
-var http = require("http")
 var request = require('request')
-var url = require('url')
-var querystring = require('querystring')
 var qs = require('querystring')
-var irc = require("irc")
 var tako = require('./tako.js')
 
 var irc = require('irc');
