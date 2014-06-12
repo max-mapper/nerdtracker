@@ -9,15 +9,16 @@ var qs = require('querystring')
 var irc = require("irc")
 var tako = require('./tako.js')
 
+var options = require('./options.js')()
+if( !options.port ) port = 443;
+
 var irc = require('irc');
-var bot = new irc.Client('irc.freenode.net', 'nerdtracker5000', {
-  channels: ['#nerdtracker'],
+var bot = new irc.Client('irc.freenode.net', options.nick, {
+  channels: options.channels,
   retryCount: 5,
   retryDelay: 5000,
   debug: true // turns on verbose logging
 })
-
-var options = require('./options.js')()
 
 var t = tako()
 t.middle('json')
@@ -72,5 +73,10 @@ t
   })
   
 t.listen(function(handler) {
-  return https.createServer(options, handler)
-}, 443)
+  if( options.ca && options.key && options.cert ){
+    return https.createServer(options, handler)
+  }
+  else {
+    return http.createServer(handler)
+  }
+}, options.port)
